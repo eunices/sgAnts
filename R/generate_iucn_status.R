@@ -9,12 +9,14 @@
 #' of variables that will be used in boolean checks within this function.
 #' @param df_habitat_sp_mat data.table output from generate_habitat_sp_matrix function. It is a 
 #' data.table that contains the 
-#' @param site_cut_off 
+#' @param site_cut_off The cut-off (maximum) threshold number of sites. 
 #'
-#' @return
+#' @return A data.table with species and their corresponding boolean checks and assigned 
+#' IUCN status.
 #' @export
 #'
-#' @examples
+#' @examples 
+#' generate_iucn_status(df_bool, df_habitat_sp_mat, 2)
 generate_iucn_status <- function(df_bool,
 								 df_habitat_sp_mat,
 								 site_cut_off = 2) {
@@ -61,15 +63,6 @@ generate_iucn_status <- function(df_bool,
 	isAOOinYoungSec <- df_iucn$n_sites.young_secondary >= 1
 	isAOOinUrban <- df_iucn$n_sites.urban_semi_urban >= 1
 
-	isAreaOfOccupancyInAllThree <- 
-		isAOOinPrimaryMatSec & isAOOinYoungSec & isAOOinUrban
-
-	isAreaOfOccupancyInUrbanOnly <- 
-		!isAOOinPrimaryMatSec & !isAOOinYoungSec & isAOOinUrban
-
-	isAreaOfOccupancyInAllThreeOrUrban <- 
-		isAreaOfOccupancyInAllThree | isAreaOfOccupancyInUrbanOnly
-
 	isAreaOfOccupancyInYoungSecAndPriMatSecOnly <- 
 		isAOOinPrimaryMatSec & isAOOinYoungSec & !isAOOinUrban
 
@@ -85,7 +78,7 @@ generate_iucn_status <- function(df_bool,
 						   isRecordedSinceMurphy,
 						   isSingletonOrDoubletonReproductive,
 						   isRecordedInTwoOrLessSites,
-						   isAreaOfOccupancyInAllThreeOrUrban,
+						   isAOOinUrban,
 						   isAreaOfOccupancyInYoungSecAndPriMatSecOnly,
 						   isAreaOfOccupancyInYoungSecOnly,
 						   isAreaOfOccupancyInPriMatSecOnly)
@@ -105,7 +98,7 @@ generate_iucn_status <- function(df_bool,
 
 	isLeastConcern <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
-		isAreaOfOccupancyInAllThreeOrUrban
+		isAOOinUrban
 
 	isNearThreatened <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
@@ -121,15 +114,15 @@ generate_iucn_status <- function(df_bool,
 
 
 	# Appending statuses to dataset
-	df_final$category_IUCN <- "No status"
-	df_final[isDataDeficient1]$category_IUCN <- "Data Deficient"
-	df_final[isToBeManuallyDefined]$category_IUCN <- "! MANUAL CHECK (DD/NE)"
-	df_final[isCriticallyEndangered]$category_IUCN <- "Critically Endangered"
-	df_final[isDataDeficient2]$category_IUCN <- "Data Deficient"
-	df_final[isLeastConcern]$category_IUCN <- "Least Concern"
-	df_final[isNearThreatened]$category_IUCN <- "Near Threatened"
-	df_final[isVulnerable]$category_IUCN <- "Vulnerable"
-	df_final[isEndangered]$category_IUCN <- "Endangered"
+	df_final$category_iucn <- "No status"
+	df_final[isDataDeficient1]$category_iucn <- "Data Deficient"
+	df_final[isToBeManuallyDefined]$category_iucn <- "! MANUAL CHECK (DD/NE)"
+	df_final[isCriticallyEndangered]$category_iucn <- "Critically Endangered"
+	df_final[isDataDeficient2]$category_iucn <- "Data Deficient"
+	df_final[isLeastConcern]$category_iucn <- "Least Concern"
+	df_final[isNearThreatened]$category_iucn <- "Near Threatened"
+	df_final[isVulnerable]$category_iucn <- "Vulnerable"
+	df_final[isEndangered]$category_iucn <- "Endangered"
 
 	# Summarise results and return
 	df_final

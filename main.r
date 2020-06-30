@@ -25,4 +25,5 @@ df_bool <-
 df_iucn <-
     generate_iucn_status(df_bool, df_habitat_sp_mat)
 
-# df_iucn
+# A summary
+df_iucn[, list(n=.N, percentage=.N/dim(df_iucn)[1] * 100), by="category_iucn"]
