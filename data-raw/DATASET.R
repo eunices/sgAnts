@@ -12,8 +12,9 @@ folder_data = paste0(folder_data_root, "final/")
 folder_test = paste0(folder_data_root, "2020-05-29-random-pts/test/") # test data
 folder_script = "2020-03-08-red-list-sg-hym/03-analyse/R/"
 
-# File names
-## For data analyses
+
+
+# Vectors
 g_islands = paste0(folder_data, "islands.gpkg")
 g_parks_nat_res = paste0(folder_data, "parks-nature-reserves.gpkg")
 g_parks_all = paste0(folder_data, "parks-all.gpkg")
@@ -34,3 +35,13 @@ usethis::use_data(v_parks_nat_res, overwrite = TRUE)
 usethis::use_data(v_parks_all, overwrite = TRUE)
 usethis::use_data(v_greenery, overwrite = TRUE)
 usethis::use_data(v_planning_areas, overwrite = TRUE)
+
+
+
+
+
+sgAnts_test_data = paste0(folder_test, "test-points.csv")
+sg_ants_test = fread(sgAnts_test_data)
+
+setwd("C:/_dev/msc/sgAnts")
+usethis::use_data(sg_ants_test, overwrite = TRUE)
