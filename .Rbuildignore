@@ -1,2 +1,11 @@
-^LICENSE\.md$
-^README\.md$
+^.*\.Rproj$         
+^\.Rproj\.user$     
+^README\.Rmd$       
+^LICENSE\.md$       
+^cran-comments\.md$ 
+^\.travis\.yml$     
+^data-raw$          
+^pkgdown$           
+^_pkgdown\.yml$     
+^\.github$          
+^data-raw$
