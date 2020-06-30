@@ -28,3 +28,9 @@ df_iucn <-
 
 # A summary
 df_iucn[, list(n=.N, percentage=.N/dim(df_iucn)[1] * 100), by="category_iucn"]
+
+
+# Ancillary functions
+
+p = classify_parks()
+p
