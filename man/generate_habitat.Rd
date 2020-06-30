@@ -34,10 +34,13 @@ If none are specified (i.e. they are NA), the function will used a preset group 
 which are loaded from the package itself through \code{data(vector_name)}.}
 }
 \value{
-Returns a data.table with appended site name and habitat type it belongs to.
+A data.table with appended site name and habitat type it belongs to.
 }
 \description{
 Generate the site name and corresponding habitat category (habitat_final) based on a series of
 spatial joins from point data (typically latitude and longitude, though this can be changed) to
 the geospatial vectors found in the package.
+}
+\examples{
+generate_habitat(df_species, c("id", "species", "type"), c("X", "Y"), 4236)
 }

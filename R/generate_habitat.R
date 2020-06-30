@@ -20,10 +20,11 @@
 #' If none are specified (i.e. they are NA), the function will used a preset group of vectors
 #' which are loaded from the package itself through `data(vector_name)`.
 #'
-#' @return Returns a data.table with appended site name and habitat type it belongs to.
+#' @return A data.table with appended site name and habitat type it belongs to.
 #' @export
 #'
-#' @examples
+#' @examples 
+#' generate_habitat(df_species, c("id", "species", "type"), c("X", "Y"), 4236)
 generate_habitat <- function(df_species,
 
 							 identifier_columns = c("id", "species", "type"),
