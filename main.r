@@ -22,7 +22,7 @@ df_habitat_sp_mat <-
 df_bool <-
     generate_boolean_check_vars(df_species, date_cut_off)
 
-# df_iucn <- 
-#     generate_iucn_status(df_bool, df_habitat_sp_mat)
-# 
+df_iucn <-
+    generate_iucn_status(df_bool, df_habitat_sp_mat)
+
 # df_iucn

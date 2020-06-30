@@ -22,6 +22,10 @@ generate_habitat_sp_matrix <- function(df_habitat,
 	# Generate habitat matrix
 	# by counting number of unique sites of  habitat for each species
 
+	# Get unique species
+	all_species <- unique(df_habitat$species)
+	all_species <- data.table(data.frame(species = all_species))
+
 
 	# Subset data from cut-off date
 	df_habitat <- df_habitat[get(collection_date_column) >= date_cut_off]
@@ -63,6 +67,15 @@ generate_habitat_sp_matrix <- function(df_habitat,
 
 	names(df_habitat_sp_mat)[2:length(names(df_habitat_sp_mat))] <- 
 		paste0("n_sites.", names(df_habitat_sp_mat)[2:length(names(df_habitat_sp_mat))])
+
+
+	# Add missing species back
+	df_habitat_sp_mat <- merge(all_species, 
+							   df_habitat_sp_mat, 
+							   by = "species", 
+							   all.x = T, all.y = F)
+
+	df_habitat_sp_mat[is.na(df_habitat_sp_mat)] <- 0 
 
 
 	# Return matrix
