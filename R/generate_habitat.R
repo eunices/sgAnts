@@ -5,7 +5,7 @@
 #' spatial joins from point data (typically latitude and longitude, though this can be changed) to 
 #' the geospatial vectors found in the package.
 #'
-#' @param df_species Data (data.table) containing individual species records. 
+#' @param df_species A data.table containing individual species records. 
 #' Should minimally have specimen identifier, species identity, verbatim locality and/or 
 #' latitude and longitude, collection date and specimen type (worker, queen, male/ female alate).
 #' @param identifier_columns These are a group of identifier columns, used for easy reference
