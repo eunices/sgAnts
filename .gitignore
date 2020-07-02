@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=r
 
 ### R ###
+# Keys
+*keys.r
+
 # History files
 .Rhistory
 .Rapp.history
