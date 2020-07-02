@@ -16,5 +16,6 @@ How to set up bookdown?
 Set up code cov
 
 
-https://ropenscilabs.github.io/actions_sandbox/testing-with-renev.html
-
+# Resources
+- https://ropenscilabs.github.io/actions_sandbox/testing-with-renev.html
+- https://github.com/r-lib/actions/tree/master/examples#test-coverage-workflow
