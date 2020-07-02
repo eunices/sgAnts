@@ -42,6 +42,7 @@ usethis::use_data(v_planning_areas, overwrite = TRUE)
 
 sgAnts_test_data = paste0(folder_test, "test-points.csv")
 sg_ants_test = fread(sgAnts_test_data)
+sg_ants_test$id = 1:dim(sg_ants_test)[1]
 
 setwd("C:/_dev/msc/sgAnts")
 usethis::use_data(sg_ants_test, overwrite = TRUE)
