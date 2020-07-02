@@ -22,5 +22,6 @@ function.
 Generate variables needed for boolean checks for each species
 }
 \examples{
-generate_boolean_check_vars(df_species, as.Date("1960-01-01"))
+data("sg_ants_test")
+generate_boolean_check_vars(sg_ants_test, as.Date("1960-01-01"))
 }

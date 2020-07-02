@@ -1,6 +1,12 @@
 name: R-CMD-check
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   R-CMD-check:
@@ -66,8 +72,7 @@ jobs:
           sudo -s eval "$sysreqs"
 
       - name: Install R package dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
+        run: remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
 
@@ -75,7 +80,9 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        run: |
+          library(testthat)
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results

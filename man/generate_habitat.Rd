@@ -42,5 +42,6 @@ spatial joins from point data (typically latitude and longitude, though this can
 the geospatial vectors found in the package.
 }
 \examples{
-generate_habitat(df_species, c("id", "species", "type"), c("X", "Y"), 4236)
+data("sg_ants_test")
+generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
 }

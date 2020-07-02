@@ -17,5 +17,7 @@ Depends:
     R (>= 2.10),
     data.table (>= 1.12.4),
     sf (>= 0.8-0)
+Suggests:
+    testthat
 URL: https://github.com/eunices/sgAnts
 BugReports: https://github.com/eunices/sgAnts/issues

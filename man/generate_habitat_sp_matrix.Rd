@@ -27,5 +27,7 @@ Generates the habitat versus species matrix, by counting the number of unique si
 based on the record-habitat matrix with the site name and corresponding habitat type columns.
 }
 \examples{
+data("sg_ants_test")
+df_habitat <- generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
 generate_habitat_matrix(df_habitat, "collection_date", as.Date("1960-01-01"))
 }

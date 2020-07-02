@@ -18,7 +18,8 @@
 #' 
 #' @export
 #' 
-#' @examples classify_parks(10000, 10000, 80, NA)
+#' @examples 
+#' classify_parks(10000, 10000, 80, NA)
 classify_parks <- function(min_park_size = 10000, 
 						   min_unmanaged_tree_area = 10000, 
 						   min_vegetation_percentage = 80,

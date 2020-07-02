@@ -12,7 +12,8 @@
 #' @export
 #'
 #' @examples 
-#' generate_boolean_check_vars(df_species, as.Date("1960-01-01"))
+#' data("sg_ants_test")
+#' generate_boolean_check_vars(sg_ants_test, as.Date("1960-01-01"))
 generate_boolean_check_vars <- function(df_species,
 									    date_cut_off = as.Date("1960-01-01")) {
 
@@ -21,8 +22,8 @@ generate_boolean_check_vars <- function(df_species,
 	# based on cut off date, singleton/doubleton of reproductive caste
 
 	df_bool <- df_species[, list(coll_date_last = max(collection_date), 
-							  	  n_specimens_non_repro = .N,
-							  	  n_specimens_repro = sum(type=="reproductive")), by="species"]
+							  	 n_specimens_non_repro = .N,
+							  	 n_specimens_repro = sum(type=="reproductive")), by="species"]
 
 	df_bool$coll_since_cut_off <- ifelse(df_bool$coll_date_last < date_cut_off, "n", "y")
 
