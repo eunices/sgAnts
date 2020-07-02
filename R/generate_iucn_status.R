@@ -37,7 +37,6 @@ generate_iucn_status <- function(df_bool,
 	# occurrences in the df_habitat_sp_mat
 
 
-
 	# Get variables with site names
 	cols_site <- names(df_iucn)[grep("n_sites", names(df_iucn))]
 
@@ -48,7 +47,6 @@ generate_iucn_status <- function(df_bool,
 
 	# Tabulate total number of sites
 	df_iucn$n_sites_total <- rowSums(df_iucn[, ..cols_site])     
-
 
 
 	# Boolean checks
@@ -79,14 +77,15 @@ generate_iucn_status <- function(df_bool,
 
 
 	# Creating the final dataset template based on flowchart
-	df_final <- data.table(species=df_iucn$species, 
-						   isRecordedSinceMurphy,
-						   isSingletonOrDoubletonReproductive,
-						   isRecordedInTwoOrLessSites,
-						   isAOOinUrban,
-						   isAreaOfOccupancyInYoungSecAndPriMatSecOnly,
-						   isAreaOfOccupancyInYoungSecOnly,
-						   isAreaOfOccupancyInPriMatSecOnly)
+	df_final <- data.table::data.table(
+					species=df_iucn$species, 
+					isRecordedSinceMurphy,
+					isSingletonOrDoubletonReproductive,
+					isRecordedInTwoOrLessSites,
+					isAOOinUrban,
+					isAreaOfOccupancyInYoungSecAndPriMatSecOnly,
+					isAreaOfOccupancyInYoungSecOnly,
+					isAreaOfOccupancyInPriMatSecOnly)
 
 
 	# Assessing IUCN statuses using boolean checks

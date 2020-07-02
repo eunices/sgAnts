@@ -26,7 +26,7 @@ generate_habitat_sp_matrix <- function(df_habitat,
 
 	# Get unique species
 	all_species <- unique(df_habitat$species)
-	all_species <- data.table(data.frame(species = all_species))
+	all_species <- data.table::data.table(data.frame(species = all_species))
 
 
 	# Subset data from cut-off date

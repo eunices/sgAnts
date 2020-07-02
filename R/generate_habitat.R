@@ -104,12 +104,12 @@ create_species_sf_obj <- function(df_species,
     df_species_latlon <- df_species[!isXNA & !isYNA, ]
     
     # Change species coordinates to sf object
-    v_species <- st_as_sf(df_species, coords=coord_columns) 
+    v_species <- sf::st_as_sf(df_species, coords=coord_columns) 
     # needs to have columns "species", "collection_date", "type", and coord columns
     
-    if(is.na(st_crs(v_species))) v_species <- st_set_crs(v_species, df_species_epsg)
+    v_species <- sf::st_set_crs(v_species, df_species_epsg)
     
-    v_species <- st_transform(v_species, epsg_svy21)
+    v_species <- sf::st_transform(v_species, epsg_svy21)
     
     
     # Filter results without lat/lon
@@ -168,11 +168,21 @@ generate_initial_habitat <- function(v_species,
     
     
     # Get data.table from each spatial join table									 
-    df_islands <- get_data_from_sp_sf(st_join(v_species, v_islands))               # islands
-    df_parks_nat_res <- get_data_from_sp_sf(st_join(v_species, v_parks_nat_res))   # parks, nat res
-    df_parks_all <- get_data_from_sp_sf(st_join(v_species, v_parks_all))           # parks, others
-    df_greenery <- get_data_from_sp_sf(st_join(v_species, v_greenery))             # greenery
-    df_planning_areas <- get_data_from_sp_sf(st_join(v_species, v_planning_areas)) # planning areas
+
+    # islands
+    df_islands <- get_data_from_sp_sf(sf::st_join(v_species, v_islands))             
+
+    # parks, nat res
+    df_parks_nat_res <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_nat_res)) 
+
+    # parks, others
+    df_parks_all <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_all))         
+
+    # greenery
+    df_greenery <- get_data_from_sp_sf(sf::st_join(v_species, v_greenery))          
+
+    # planning areas
+    df_planning_areas <- get_data_from_sp_sf(sf::st_join(v_species, v_planning_areas)) 
     
     
     # Create one dataset from all the spatial join datasets by merging
@@ -210,7 +220,7 @@ generate_initial_habitat <- function(v_species,
     names(df_habitat)[which(names(df_habitat)=="site_name")] <- "site_name_pa"
     
     
-    data.table(df_habitat)
+    data.table::data.table(df_habitat)
     
 }
 

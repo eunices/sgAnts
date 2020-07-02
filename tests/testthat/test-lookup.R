@@ -16,3 +16,4 @@ test_that("match_habitat_to_broad_iucn_habitat function works", {
   expect_true(all(matched_data$habitat_IUCN %in% categories))
 
 })
+

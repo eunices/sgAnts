@@ -27,8 +27,8 @@ boolean checks from generate_boolean_check_vars function.
 \examples{
 data("sg_ants_test")
 df_habitat <- generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
-df_habitat_sp_mat <- generate_habitat_matrix(df_habitat, "collection_date", 
-												as.Date("1960-01-01"))
+df_habitat_sp_mat <- generate_habitat_sp_matrix(df_habitat, "collection_date",
+											       as.Date("1960-01-01"))
 df_bool <- generate_boolean_check_vars(sg_ants_test, as.Date("1960-01-01"))
 generate_iucn_status(df_bool, df_habitat_sp_mat, 2)
 }
