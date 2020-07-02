@@ -42,13 +42,12 @@ jobs:
 
       - name: Install necessary R packages and dependencies
         run: |
-            install.packages(c("remotes", "rcmdcheck", "testthat", "covr"))
-            remotes::install_deps(dependencies = TRUE)
-          shell: Rscript {0}
+          install.packages(c("remotes", "rcmdcheck", "testthat", "covr"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
 
 
-      
-      - name: Run code coverage
+      - name: Get code coverage
         run: covr::package_coverage(type = "tests")
         shell: Rscript {0}
 
