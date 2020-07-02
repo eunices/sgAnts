@@ -5,6 +5,9 @@
 # Keys
 *keys.r
 
+# Check files
+check/*
+
 # History files
 .Rhistory
 .Rapp.history
