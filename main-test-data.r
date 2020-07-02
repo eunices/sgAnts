@@ -3,7 +3,6 @@
 data("sg_ants_test")
 
 df_species = sg_ants_test
-df_species$id = 1:dim(df_species)[1]
 
 identifier_columns <- c("id", "species", "type")
 coord_columns <- c("X", "Y")

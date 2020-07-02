@@ -9,6 +9,7 @@ An sf object with 52 rows and 14 columns:
 \describe{
 \item{NAME}{Site name}
 \item{geom}{Points within sf object}
+\item{OBJECTID}{OBJECTID variable found in original datasets. Can be used as an identifier.}
 ...
 }
 }

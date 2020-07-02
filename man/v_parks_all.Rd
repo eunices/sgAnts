@@ -9,6 +9,17 @@ An sf object with 557 rows and 17 columns:
 \describe{
 \item{NAME}{Site name}
 \item{geom}{Points within sf object}
+\item{habitat}{Assigned habitat based on rules outlined in Wang et al.}
+\item{AREA_SQ_M}{Area of site, in sq km.}
+\item{prop_veg_canopy_unmanaged}{Proportion of pixels of unmanaged vegetation with canopy
+of entire site. }
+\item{prop_veg_canopy}{Proportion of pixels of vegetation with canopy of entire site.}
+\item{prop_veg}{Proportion of pixels with vegetation of entire site.}
+\item{prop_veg_no_canopy_of_veg}{Proportion of vegetation with no canopy based on counting
+pixels from Gaw et al. (2019)}
+\item{mangrove}{Number of pixels which is mangrove based on Gaw et al. (2019)}
+\item{veg_canopy_unmanaged}{Number of pixels which is unmanaged greenery with canopy based on
+Gaw et al. (2019)}
 ...
 }
 }

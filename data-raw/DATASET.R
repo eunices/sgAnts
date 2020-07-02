@@ -29,10 +29,9 @@ v_greenery = st_read(g_greenery)
 v_planning_areas = st_read(g_planning_areas)
 
 # Rename and subset columns
-v_islands = v_islands[, c("NAME", "geom", "Descriptio")]
-names(v_islands)[which(names(v_islands) == "Descriptio")] = "description"
+v_islands = v_islands[, c("NAME", "geom")]
 v_parks_nat_res = v_parks_nat_res[, c("NAME", "geom")]
-v_parks_all = v_parks_all[, c("NAME", "geom", "habitat", 
+v_parks_all = v_parks_all[, c("NAME", "geom", "habitat", "AREA_SQ_M", 
                               "prop_veg_canopy_unmanaged", "prop_veg_canopy",
                               "prop_veg_no_canopy", "prop_veg",
                               "prop_veg_no_canopy_of_veg", "mangrove",
