@@ -1,3 +1,5 @@
+name: R-CMD-check-all
+
 on:
   push:
     branches:
@@ -6,10 +8,9 @@ on:
     branches:
       - master
 
-name: R-CMD-check
 
 jobs:
-  R-CMD-check:
+  R-CMD-check-all:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})

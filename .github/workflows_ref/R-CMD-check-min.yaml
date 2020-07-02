@@ -1,3 +1,5 @@
+name: R-CMD-check-min
+
 on:
   push:
     branches:
@@ -6,10 +8,9 @@ on:
     branches:
       - master
 
-name: R-CMD-check
 
 jobs:
-  R-CMD-check:
+  R-CMD-check-min:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +21,7 @@ jobs:
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
-        
+
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
