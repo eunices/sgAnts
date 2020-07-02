@@ -23,18 +23,5 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
 
-      - name: Update packages
-      run: sudo apt-get -y update
-
-      - name: Install libcurl (to install from source)
-      run: sudo apt-get install libcurl4-openssl-dev
-
-      - name: Install gdal (to use R librar sf)
-      run: |
-        sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-        sudo apt-get install -y libudunits2-dev libgdal-dev libgeos-dev libproj-dev
-
-
-
 
         
