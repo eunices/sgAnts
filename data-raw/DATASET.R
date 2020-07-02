@@ -28,6 +28,17 @@ v_parks_all = st_read(g_parks_all)
 v_greenery = st_read(g_greenery)
 v_planning_areas = st_read(g_planning_areas)
 
+# Rename and subset columns
+v_islands = v_islands[, c("NAME", "geom", "Descriptio")]
+names(v_islands)[which(names(v_islands) == "Descriptio")] = "description"
+v_parks_nat_res = v_parks_nat_res[, c("NAME", "geom")]
+v_parks_all = v_parks_all[, c("NAME", "geom", "habitat", 
+                              "prop_veg_canopy_unmanaged", "prop_veg_canopy",
+                              "prop_veg_no_canopy", "prop_veg",
+                              "prop_veg_no_canopy_of_veg", "mangrove",
+                              "veg_canopy_unmanaged")]
+v_greenery = v_greenery[, c("NAME", "geom", "AREA_SQ_M")]
+v_planning_areas = v_planning_areas[, c("NAME", "geom", "OBJECTID")]
 
 setwd("C:/_dev/msc/sgAnts")
 usethis::use_data(v_islands, overwrite = TRUE)

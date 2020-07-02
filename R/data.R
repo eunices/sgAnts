@@ -17,8 +17,8 @@
 
 #' v_greenery
 #'
-#' A geospatial vector layer for unmanaged greenery patches in Singapore based on Gaw et al. (2019)
-#' https://www.mdpi.com/2306-5729/4/3/116. 
+#' A geospatial vector layer for unmanaged greenery (with tree cover) patches in Singapore based on 
+#' Gaw et al. (2019) https://www.mdpi.com/2306-5729/4/3/116. 
 #'
 #' @format An sf object with 449 rows and 3 columns:
 #' \describe{
