@@ -5,20 +5,20 @@
 
 # Updating package after edits
 ```
-    devtools::document(roclets = c('rd', 'collate', 'namespace'))
+devtools::document(roclets = c('rd', 'collate', 'namespace'))
 ```
 
 # Before pushing...
 ```
-    testthat::test()
-    rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), 
-                         error_on = "warning",
-                         check_dir = "check")
+testthat::test()
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), 
+                        error_on = "warning",
+                        check_dir = "check")
 ```
 
 # Installing 
 ```
-    devtools::install_github("eunices/sgAnts") 
+devtools::install_github("eunices/sgAnts") 
 ```
 
 # Resources
