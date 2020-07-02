@@ -79,7 +79,7 @@
 #' v_parks_nat_res
 #'
 #' A geospatial vector layer for parks (nature reserves) in Singapore from the basemap of Singapore
-#' by Teo Siyang.
+#' based on Ascher et al. (2020), created by Ong Xin Rui. 
 #'
 #' @format An sf object with 9 rows and 13 columns:
 #' \describe{

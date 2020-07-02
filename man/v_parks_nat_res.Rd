@@ -20,6 +20,6 @@ v_parks_nat_res
 }
 \description{
 A geospatial vector layer for parks (nature reserves) in Singapore from the basemap of Singapore
-by Teo Siyang.
+based on Ascher et al. (2020), created by Ong Xin Rui.
 }
 \keyword{datasets}
