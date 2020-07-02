@@ -1,6 +1,7 @@
 # Singapore Ants (SgAnts) R Package
 
 ![R-CMD-check](https://github.com/eunices/sgAnts/workflows/R-CMD-check/badge.svg)
+[![codecov](https://codecov.io/gh/eunices/sgAnts/branch/master/graph/badge.svg)](https://codecov.io/gh/eunices/sgAnts)
 
 # Notes
 

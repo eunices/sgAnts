@@ -43,3 +43,10 @@ use_r("functionName")
 `inst/extdata` for example data, can shown in vignette
 can store data in `test/` for test data
 
+## Checks
+
+### Code coverage
+
+
+### R cmd check for uploading to cran
+
