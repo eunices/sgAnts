@@ -23,9 +23,6 @@
 #' @return A data.table with appended site name and habitat type it belongs to.
 #' @export
 #'
-#' @examples 
-#' data("sg_ants_test")
-#' generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
 generate_habitat <- function(df_species,
 
 							 identifier_columns = c("id", "species", "type"),

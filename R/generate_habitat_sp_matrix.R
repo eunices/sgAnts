@@ -13,10 +13,6 @@
 #' representing number of unique sites it is found in for that habitat type.
 #' @export
 #'
-#' @examples 
-#' data("sg_ants_test")
-#' df_habitat <- generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
-#' generate_habitat_sp_matrix(df_habitat, "collection_date", as.Date("1960-01-01"))
 generate_habitat_sp_matrix <- function(df_habitat,
 									   collection_date_column = "collection_date", 
 									   date_cut_off = as.Date("1960-01-01")) {

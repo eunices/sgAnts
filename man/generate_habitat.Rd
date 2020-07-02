@@ -41,7 +41,3 @@ Generate the site name and corresponding habitat category (habitat_final) based 
 spatial joins from point data (typically latitude and longitude, though this can be changed) to
 the geospatial vectors found in the package.
 }
-\examples{
-data("sg_ants_test")
-generate_habitat(sg_ants_test, c("id", "species", "type"), c("X", "Y"), 4236)
-}
