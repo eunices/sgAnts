@@ -11,6 +11,8 @@
 #' habitat, in m^2. 
 #' @param min_vegetation_percentage Minimum percentage of vegetation for parks to be classified as
 #' secondary forest habitat, in m^2.
+#' @param v_parks_all The sf object for parks vector layer. If not specified, the default will be 
+#' used.
 #' 
 #' @return An sf object that contains the Singapore park geospatial layer.
 #' 
