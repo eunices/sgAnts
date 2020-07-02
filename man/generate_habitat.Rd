@@ -27,7 +27,7 @@ and joins to other derived datasets. Should include columns analgous to "id", "s
 \item{df_species_epsg}{The EPSG number of the coordinates. This would typically be
 4326 for latitude and longitude, representing WGS84.}
 
-\item{vector_layers}{List of sf objects, containing islands (v_islands), parks \link{nature reserves}
+\item{vector_layers}{List of sf objects, containing islands (v_islands), parks (nature reserves)
 (v_parks_nat_res), parks \link{all} (v_parks_all), unmanaged greenery (v_greenery), URA planning areas
 (v_planning_areas).
 If none are specified (i.e. they are NA), the function will used a preset group of vectors

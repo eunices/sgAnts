@@ -1,8 +1,6 @@
 
 #' Classify parks based on threshold
 #' 
-#' \code{classify_parks} returns a sf object of parks with habitat column.
-#' 
 #' This function takes the Singapore park gpkg and reclassifies the geospatial files
 #' based on rules defined by minimum park size \code{min_park_size}, minimum area for unmanaged
 #' trees \code{min_unmanaged_tree_area}, minimum percentage of vegetation 

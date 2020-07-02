@@ -24,9 +24,6 @@ secondary forest habitat, in m^2.}
 An sf object that contains the Singapore park geospatial layer.
 }
 \description{
-\code{classify_parks} returns a sf object of parks with habitat column.
-}
-\details{
 This function takes the Singapore park gpkg and reclassifies the geospatial files
 based on rules defined by minimum park size \code{min_park_size}, minimum area for unmanaged
 trees \code{min_unmanaged_tree_area}, minimum percentage of vegetation
