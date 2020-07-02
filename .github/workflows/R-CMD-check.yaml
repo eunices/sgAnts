@@ -9,12 +9,14 @@ jobs:
     name: ${{ matrix.config.os }} (R version ${{ matrix.config.r }})
 
     strategy: 
+      fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-16.04,   r: '3.6.1'}
+          - {os: ubuntu-16.04,   r: '3.6.1', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSPM: ${{ matrix.config.rspm }}
 
     steps:
 
@@ -41,9 +43,30 @@ jobs:
 
 
       # Steps to install R packages
-      - name: Install necessary R packages and dependencies
+      - name: Install "base" R packages, get within-package dependencies 
         run: |
           install.packages(c("remotes", "rcmdcheck", "testthat", "covr"))
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ matrix.config.r }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-1-
+
+      - name: Install other R system dependencies
+        if: runner.os == 'Linux'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+          sudo -s eval "$sysreqs"
+
+      - name: Install dependencies
+        run: |
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
