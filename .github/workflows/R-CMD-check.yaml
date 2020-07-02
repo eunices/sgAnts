@@ -8,10 +8,10 @@ jobs:
     runs-on: ${{ matrix.config }}
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
-      strategy: 
-        matrix:
-          config:
-            - {os: ubuntu-16.04,   r: '3.6.1'}
+    strategy: 
+      matrix:
+        config:
+          - {os: ubuntu-16.04,   r: '3.6.1'}
 
       env:
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
