@@ -49,16 +49,6 @@ jobs:
 
 
       # After success
-      - name: Get code coverage
-        run: covr::package_coverage(type = "tests")
+      - name: Test coverage
+        run: covr::codecov()
         shell: Rscript {0}
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          flags: tests
-          name: sg-ants-codecov
-          fail_ci_if_error: true
-        
