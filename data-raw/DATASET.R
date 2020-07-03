@@ -6,11 +6,11 @@ library(sf)
 library(data.table)
 
 # Folders
-setwd("C:/_dev/msc/thesis")
-folder_data_root = "data/geo_processed/red-list-sg-ants/"
+setwd("C:/_dev/msc/sg-ant-red-list")
+folder_data_root = "data/geo_processed/"
 folder_data = paste0(folder_data_root, "final/")
 folder_test = paste0(folder_data_root, "2020-05-29-random-pts/test/") # test data
-folder_script = "2020-03-08-red-list-sg-hym/03-analyse/R/"
+
 
 
 
