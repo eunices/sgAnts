@@ -77,7 +77,7 @@ generate_habitat <- function(df_species,
 
 
 	# Return all records for manual checking
-	df_final_habitat_all
+	df_final_habitat_all[order(note)]
 
 }
 
