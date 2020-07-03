@@ -9,7 +9,7 @@ generate_boolean_check_vars(df_species, date_cut_off = as.Date("1960-01-01"))
 \arguments{
 \item{df_species}{A data.table containing individual species records.
 Should minimally have specimen identifier, species identity, verbatim locality and/or
-latitude and longitude, collection date and specimen type (worker, queen, male/ female alate).}
+latitude and longitude, collection date and specimen type (worker/ reproductive).}
 
 \item{date_cut_off}{The date cut-off for the bifurcation of the flow chart.
 See Wang et al. (2020) Figure 1 for details.}
