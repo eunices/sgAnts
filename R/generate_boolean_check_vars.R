@@ -21,7 +21,7 @@ generate_boolean_check_vars <- function(df_species,
 	# used in boolean checks for red list (first half)
 	# based on cut off date, singleton/doubleton of reproductive caste
 
-	df_bool <- df_species[, list(coll_date_last = max(collection_date), 
+	df_bool <- df_species[, list(coll_date_last = max(collection_date, na.rm=T), 
 							  	 n_specimens_non_repro = .N,
 							  	 n_specimens_repro = sum(type=="reproductive")), by="species"]
 
