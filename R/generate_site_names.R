@@ -17,7 +17,7 @@ generate_site_names = function() {
 
 	parks_cols <- c(cols, "habitat")	
 	df_parks_all <- get_data_from_sf(get_data_and_assign("v_parks_all"))[, ..parks_cols]	
-	df_parks_all$habitat_final <- paste0("PARKS (ALL) -- ", df$habitat)	
+	df_parks_all$habitat_final <- paste0("PARKS (ALL) -- ", df_parks_all$habitat)	
 	df_parks_all$habitat <- NULL	
 
 	df_parks_nat_res <- get_data_from_sf(get_data_and_assign("v_parks_nat_res"))[, ..cols]	
