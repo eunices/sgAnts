@@ -101,7 +101,7 @@ create_species_sf_obj <- function(df_species,
     df_species_latlon <- df_species[!isXNA & !isYNA, ]
     
     # Change species coordinates to sf object
-    v_species <- sf::st_as_sf(df_species, coords=coord_columns) 
+    v_species <- sf::st_as_sf(df_species_latlon, coords=coord_columns) 
     # needs to have columns "species", "collection_date", "type", and coord columns
     
     v_species <- sf::st_set_crs(v_species, df_species_epsg)
