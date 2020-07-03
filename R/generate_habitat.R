@@ -63,8 +63,7 @@ generate_habitat <- function(df_species,
 
 	# Generate final habitat for each record based on habitat column
 	df_final_habitat_nll <- generate_final_habitat_nll(df_species_nolatlon, 
-													   identifier_columns,
-									  			       habitat_name = "habitat")
+													   identifier_columns)
 
 
 	# Combine records with and without lat/lon
@@ -78,7 +77,7 @@ generate_habitat <- function(df_species,
 
 
 	# Return all records for manual checking
-	df_final_habitat_all[order(id)]
+	df_final_habitat_all
 
 }
 
@@ -167,19 +166,24 @@ generate_initial_habitat <- function(v_species,
     # Get data.table from each spatial join table									 
 
     # islands
-    df_islands <- get_data_from_sp_sf(sf::st_join(v_species, v_islands))             
+    df_islands <- get_data_from_sp_sf(sf::st_join(v_species, v_islands),
+                                      identifier_columns)             
 
     # parks, nat res
-    df_parks_nat_res <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_nat_res)) 
+    df_parks_nat_res <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_nat_res),
+                                            identifier_columns) 
 
     # parks, others
-    df_parks_all <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_all))         
+    df_parks_all <- get_data_from_sp_sf(sf::st_join(v_species, v_parks_all),
+                                        identifier_columns)         
 
     # greenery
-    df_greenery <- get_data_from_sp_sf(sf::st_join(v_species, v_greenery))          
+    df_greenery <- get_data_from_sp_sf(sf::st_join(v_species, v_greenery),
+                                       identifier_columns)          
 
     # planning areas
-    df_planning_areas <- get_data_from_sp_sf(sf::st_join(v_species, v_planning_areas)) 
+    df_planning_areas <- get_data_from_sp_sf(sf::st_join(v_species, v_planning_areas),
+                                             identifier_columns) 
     
     
     # Create one dataset from all the spatial join datasets by merging
@@ -287,43 +291,18 @@ generate_final_habitat <- function(df_habitat,
 
 
 generate_final_habitat_nll <- function(df_species_nolatlon, 
-                                       identifier_columns,
-                                       habitat_name = "habitat") {
+                                       identifier_columns) {
 
     
     # Create dummy dataset
     cols <- c(identifier_columns, "site_name_final", "habitat_final", "habitat_IUCN", "note")
-    df_dummy <- initialize_empty_data_table(cols)
     
-    # If habitat column is not NA, 
-    if (!is.na(habitat_name)) {
-        
-        # If habitat column defined is present,
-        if (habitat_name %in% names(df_species_nolatlon)) {
-            
-            # Remove records with no habitat
-            df <- df_species_no_latlon[!( get(habitat_name) == "" | is.na(get(habitat_name)) )]
-            rm(df_species_no_latlon)
-            
-            # Assign habitat column to habitat_IUCN column
-            df[, habitat_final := get(habitat_name)]
-            
-            # Create dummy variables for manual checking
-            df[, site_name_final := ""]
-            df[, note := "HABITAT ASSIGNMENT: MANUAL"]
-            
-            return(df)
-            
-        } else {
-            
-            return(df_dummy)
-            
-        }		
-        
-    } else {
-        
-        return(df_dummy)
-        
-    }
+    # Create dummy variables for manual checking
+    df_species_nolatlon$site_name_final <-  ""
+    df_species_nolatlon$habitat_final <-  ""
+    df_species_nolatlon$habitat_IUCN <-  ""
+    df_species_nolatlon$note <-  "HABITAT ASSIGNMENT: MANUAL"
+    
+    df_species_nolatlon[, ..cols]
     
 }

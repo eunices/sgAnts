@@ -1,9 +1,9 @@
 
-get_data_from_sp_sf <- function (sf_object) {
+get_data_from_sp_sf <- function (sf_object, identifier_columns) {
 
 	data <- get_data_from_sf(sf_object)
 	
-	cols <- c("id", "species", "collection_date", "type", "NAME")
+	cols <- c(identifier_columns, "NAME")
 	if ("habitat" %in% names(data)) {
 		cols <- c(cols, "habitat")
 	}
@@ -11,7 +11,7 @@ get_data_from_sp_sf <- function (sf_object) {
 	data <- subset(data, select = cols)
 	names(data)[which(names(data)=="NAME")] <- "site_name"
 
-	data[order(as.integer(data$id)),]
+	data
 
 }
 
