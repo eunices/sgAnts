@@ -21,7 +21,7 @@ rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"),
 ```
 
 - Pull request
-- Merge to master after paassing tests
+- Merge to master after passing tests
 
 ## For usage
 
