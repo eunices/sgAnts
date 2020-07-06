@@ -22,7 +22,7 @@ generate_boolean_check_vars <- function(df_species,
 	# based on cut off date, singleton/doubleton of reproductive caste
 
 	df_bool <- df_species[, list(coll_date_last = max(collection_date, na.rm=T), 
-							  	 n_specimens_non_repro = .N,
+							  	 n_specimens = .N,
 							  	 n_specimens_repro = sum(type=="reproductive")), by="species"]
 
 	df_bool$coll_since_cut_off <- ifelse(df_bool$coll_date_last < date_cut_off, "n", "y")
