@@ -39,8 +39,7 @@ generate_iucn_status <- function(df_bool,
 	}
 
 	# Tabulate total number of sites
-	df_iucn$n_sites_total <- rowSums(df_iucn[, ..cols_site])     
-
+	df_iucn$n_sites_total <- rowSums(df_iucn[, ..cols_site])
 
 	# Boolean checks
 
@@ -59,11 +58,15 @@ generate_iucn_status <- function(df_bool,
 	isAOOinYoungSec <- df_iucn$n_sites.young_secondary >= 1
 	isAOOinUrban <- df_iucn$n_sites.urban_semi_urban >= 1
 
-	isAreaOfOccupancyInYoungSecAndPriMatSecOnly <- 
-		isAOOinPrimaryMatSec & isAOOinYoungSec & !isAOOinUrban
+	isDominantHabitatPriMatSec <-
+		df_iucn$dominant_habitat == "primary mature secondary"
 
-	isAreaOfOccupancyInYoungSecOnly <- 
-		!isAOOinPrimaryMatSec & isAOOinYoungSec & !isAOOinUrban
+	isDominantHabitatYoungSec <-
+		df_iucn$dominant_habitat == "young secondary"
+
+	isDominantHabitatUrbanSemiUrban <-
+		df_iucn$dominant_habitat == "urban semi urban"
+
 
 	isAreaOfOccupancyInPriMatSecOnly <- 
 		isAOOinPrimaryMatSec & !isAOOinYoungSec & !isAOOinUrban
@@ -76,9 +79,10 @@ generate_iucn_status <- function(df_bool,
 					isSingletonOrDoubletonReproductive,
 					isRecordedInTwoOrLessSites,
 					isAOOinUrban,
-					isAreaOfOccupancyInYoungSecAndPriMatSecOnly,
-					isAreaOfOccupancyInYoungSecOnly,
-					isAreaOfOccupancyInPriMatSecOnly)
+					isAreaOfOccupancyInPriMatSecOnly,
+					isDominantHabitatPriMatSec,
+					isDominantHabitatYoungSec,
+					isDominantHabitatUrbanSemiUrban)
 
 
 	# Assessing IUCN statuses using boolean checks
@@ -95,15 +99,16 @@ generate_iucn_status <- function(df_bool,
 
 	isLeastConcern <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
-		isAOOinUrban
+		isDominantHabitatUrbanSemiUrban
 
 	isNearThreatened <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
-		isAreaOfOccupancyInYoungSecAndPriMatSecOnly
+		isDominantHabitatYoungSec
 
 	isVulnerable <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites &
-		isAreaOfOccupancyInYoungSecOnly
+		isDominantHabitatPriMatSec & 
+		!isAreaOfOccupancyInPriMatSecOnly
 
 	isEndangered <- isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
@@ -117,6 +122,7 @@ generate_iucn_status <- function(df_bool,
 	df_final[isCriticallyEndangered]$category_iucn <- "Critically Endangered"
 	df_final[isDataDeficient2]$category_iucn <- "Data Deficient"
 	df_final[isLeastConcern]$category_iucn <- "Least Concern"
+
 	df_final[isNearThreatened]$category_iucn <- "Near Threatened"
 	df_final[isVulnerable]$category_iucn <- "Vulnerable"
 	df_final[isEndangered]$category_iucn <- "Endangered"

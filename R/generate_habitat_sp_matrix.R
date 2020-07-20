@@ -76,6 +76,16 @@ generate_habitat_sp_matrix <- function(df_habitat,
 	df_habitat_sp_mat[is.na(df_habitat_sp_mat)] <- 0 
 
 
+	# Generate dominant habitat
+	cols_site <- names(df_habitat_sp_mat)[grep("n_sites", names(df_habitat_sp_mat))]
+	df_habitat_sp_mat$dominant_habitat <- 
+		cols_site[max.col(df_habitat_sp_mat[, ..cols_site], ties.method="first")]
+	df_habitat_sp_mat$dominant_habitat <-
+		gsub("n_sites\\.", "", df_habitat_sp_mat$dominant_habitat)
+	df_habitat_sp_mat$dominant_habitat <- 
+		gsub("_", " ", df_habitat_sp_mat$dominant_habitat)
+
+
 	# Return matrix
 	df_habitat_sp_mat
 
