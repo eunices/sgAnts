@@ -2,7 +2,7 @@
 
 data("sg_ants_test")
 
-df_species = sg_ants_test
+df_species <- sg_ants_test
 
 identifier_columns <- c("id", "species", "type")
 coord_columns <- c("X", "Y")

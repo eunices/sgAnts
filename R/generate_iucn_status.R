@@ -59,13 +59,13 @@ generate_iucn_status <- function(df_bool,
 	isAOOinUrban <- df_iucn$n_sites.urban_semi_urban >= 1
 
 	isDominantHabitatPriMatSec <-
-		df_iucn$dominant_habitat == "primary mature secondary"
+		df_iucn$dominant_habitat == "Primary/ mature secondary"
 
 	isDominantHabitatYoungSec <-
-		df_iucn$dominant_habitat == "young secondary"
+		df_iucn$dominant_habitat == "Young secondary"
 
 	isDominantHabitatUrbanSemiUrban <-
-		df_iucn$dominant_habitat == "urban semi urban"
+		df_iucn$dominant_habitat == "Urban/semi-urban"
 
 
 	isAreaOfOccupancyInPriMatSecOnly <- 
@@ -74,7 +74,7 @@ generate_iucn_status <- function(df_bool,
 
 	# Creating the final dataset template based on flowchart
 	df_final <- data.table::data.table(
-					species=df_iucn$species, 
+					species = df_iucn$species, 
 					isRecordedSinceMurphy,
 					isSingletonOrDoubletonReproductive,
 					isRecordedInTwoOrLessSites,
