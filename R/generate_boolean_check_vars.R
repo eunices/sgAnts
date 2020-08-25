@@ -21,11 +21,20 @@ generate_boolean_check_vars <- function(df_species,
 	# used in boolean checks for red list (first half)
 	# based on cut off date, singleton/doubleton of reproductive caste
 
-	df_bool <- df_species[, list(coll_date_last = max(collection_date, na.rm=T), 
-							  	 n_specimens = .N,
-							  	 n_specimens_repro = sum(type=="reproductive")), by="species"]
+	df_bool <- df_species[, 
+		list(coll_date_last = max(collection_date, na.rm=T), 
+			 n_specimens = .N,
+			 n_specimens_repro = sum(type=="reproductive"),
+			 n_specimens_non_repro = sum(type=="worker")
+			), 
+		by="species"]
 
-	df_bool$coll_since_cut_off <- ifelse(df_bool$coll_date_last < date_cut_off, "n", "y")
+	df_bool <- df_bool[!is.na(coll_date_last)]
+
+	df_bool$coll_since_cut_off <- 
+		ifelse(
+			df_bool$coll_date_last < date_cut_off, "n", "y"
+		)
 
 	df_bool
 

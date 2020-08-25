@@ -75,49 +75,11 @@ generate_habitat_sp_matrix <- function(df_habitat,
 
 	df_habitat_sp_mat[is.na(df_habitat_sp_mat)] <- 0 
 
-
-	# Generate dominant habitat
-
-	cols_site <- names(df_habitat_sp_mat)[
-			grep("n_sites", names(df_habitat_sp_mat))
-	]
-
-	df_habitat_sp_mat$highest <- 
-		apply(df_habitat_sp_mat[,-1], 1, function(x) max(x, na.rm = TRUE))
-
-	df_habitat_sp_mat$dominant_habitat <- 
-		cols_site[
-			max.col(df_habitat_sp_mat[, ..cols_site], 
-					ties.method="first")
-		]
-
-	# Fix problem of ties (with custom hierachy) by
-	# prioritizing rarer habitats
-	df_habitat_sp_mat$dominant_habitat <- ifelse(
-		df_habitat_sp_mat$highest == 
-			df_habitat_sp_mat$n_sites.primary_mature_secondary,
-		"Primary/ mature secondary",
-		ifelse(
-			df_habitat_sp_mat$highest == 
-				df_habitat_sp_mat$n_sites.young_secondary,
-			"Young secondary",
-			ifelse(
-			
-				df_habitat_sp_mat$highest == 
-					df_habitat_sp_mat$n_sites.urban_semi_urban,
-				"Urban/semi-urban", 
-				df_habitat_sp_mat$dominant_habitat
-			)
-		)
-	)
-
-	df_habitat_sp_mat[
-		rowSums(df_habitat_sp_mat[, ..cols_site]) == 0
-	]$dominant_habitat <- 
-		"Unknown"
-
-	df_habitat_sp_mat$highest <- NULL
-
+	# Remove those with no sites
+	df_habitat_sp_mat <- 
+		df_habitat_sp_mat[rowSums(df_habitat_sp_mat[, -1]) != 0,] 
+	# e.g. Tetramorium aptum, Cataulacus insularis (because they don't
+	# have dates)
 
 	# Return matrix
 	df_habitat_sp_mat

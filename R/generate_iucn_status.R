@@ -17,7 +17,7 @@
 #'
 generate_iucn_status <- function(df_bool,
 								 df_habitat_sp_mat,
-								 site_cut_off = 2) {
+								 site_cut_off = 1) {
 
 	# Rule based assignment following flow chart
 
@@ -41,6 +41,8 @@ generate_iucn_status <- function(df_bool,
 	# Tabulate total number of sites
 	df_iucn$n_sites_total <- rowSums(df_iucn[, ..cols_site])
 
+    df_iucn <- df_iucn[n_sites_total > 0]
+
 	# Boolean checks
 
 	# Date check
@@ -48,7 +50,8 @@ generate_iucn_status <- function(df_bool,
 
 	# Singleton double check
 	isSingletonOrDoubletonReproductive <- 
-		df_iucn$n_specimens_repro <= 2 & df_iucn$n_specimens_non_repro <= 0
+		df_iucn$n_specimens_repro <= 2 & 
+		df_iucn$n_specimens_non_repro == 0
 
 	# Site check
 	isRecordedInTwoOrLessSites <- df_iucn$n_sites_total <= site_cut_off
@@ -58,14 +61,39 @@ generate_iucn_status <- function(df_bool,
 	isAOOinYoungSec <- df_iucn$n_sites.young_secondary >= 1
 	isAOOinUrban <- df_iucn$n_sites.urban_semi_urban >= 1
 
-	isDominantHabitatPriMatSec <-
-		df_iucn$dominant_habitat == "Primary/ mature secondary"
+	# Majority habitat
+	sites_prop <- round(df_iucn[, ..cols_site] / df_iucn$n_sites_total * 100, 2)
 
-	isDominantHabitatYoungSec <-
-		df_iucn$dominant_habitat == "Young secondary"
+    sites_prop$habitat <- "Unknown"
 
-	isDominantHabitatUrbanSemiUrban <-
-		df_iucn$dominant_habitat == "Urban/semi-urban"
+    sites_prop[n_sites.urban_semi_urban >= 50]$habitat <- 
+        "Urban/semi-urban"
+
+    sites_prop[n_sites.young_secondary >= 50]$habitat <- 
+        "Young secondary"
+
+    sites_prop[n_sites.primary_mature_secondary >= 50]$habitat <-
+         "Primary/ mature secondary"
+
+    sites_prop[
+        n_sites.urban_semi_urban != 0 &
+        n_sites.young_secondary != 0 &
+        n_sites.primary_mature_secondary != 0 &
+        habitat == "Unknown"
+    ]$habitat <- "Urban/semi-urban"
+
+    df_iucn$majority_habitat <- sites_prop$habitat
+
+    table(sites_prop$habitat)
+
+	isMajorityHabitatPriMatSec <-
+		df_iucn$majority_habitat == "Primary/ mature secondary"
+
+	isMajorityHabitatYoungSec <-
+		df_iucn$majority_habitat == "Young secondary"
+
+	isMajorityHabitatUrbanSemiUrban <-
+		df_iucn$majority_habitat == "Urban/semi-urban"
 
 
 	isAreaOfOccupancyInPriMatSecOnly <- 
@@ -80,40 +108,48 @@ generate_iucn_status <- function(df_bool,
 					isRecordedInTwoOrLessSites,
 					isAOOinUrban,
 					isAreaOfOccupancyInPriMatSecOnly,
-					isDominantHabitatPriMatSec,
-					isDominantHabitatYoungSec,
-					isDominantHabitatUrbanSemiUrban)
+					isMajorityHabitatPriMatSec,
+					isMajorityHabitatYoungSec,
+					isMajorityHabitatUrbanSemiUrban)
 
 
 	# Assessing IUCN statuses using boolean checks
-	isDataDeficient1 <- !isRecordedSinceMurphy & isSingletonOrDoubletonReproductive
-	isToBeManuallyDefined <- !isRecordedSinceMurphy & !isSingletonOrDoubletonReproductive
+	isDataDeficient1 <- 
+		!isRecordedSinceMurphy & isSingletonOrDoubletonReproductive
+	
+	isToBeManuallyDefined <- 
+		!isRecordedSinceMurphy & !isSingletonOrDoubletonReproductive
 
-	isCriticallyEndangered <- isRecordedSinceMurphy & 
+	isCriticallyEndangered <- 
+		isRecordedSinceMurphy & 
 		isRecordedInTwoOrLessSites & 
 		isAreaOfOccupancyInPriMatSecOnly
 
-	isDataDeficient2 <- isRecordedSinceMurphy & 
+	isDataDeficient2 <- 
+		isRecordedSinceMurphy & 
 		isRecordedInTwoOrLessSites & 
 		!isAreaOfOccupancyInPriMatSecOnly
 
-	isLeastConcern <- isRecordedSinceMurphy & 
+	isLeastConcern <- 
+		isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
-		isDominantHabitatUrbanSemiUrban
+		isMajorityHabitatUrbanSemiUrban
 
-	isNearThreatened <- isRecordedSinceMurphy & 
+	isNearThreatened <- 
+		isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
-		isDominantHabitatYoungSec
+		isMajorityHabitatYoungSec
 
-	isVulnerable <- isRecordedSinceMurphy & 
+	isVulnerable <- 
+		isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites &
-		isDominantHabitatPriMatSec & 
+		isMajorityHabitatPriMatSec & 
 		!isAreaOfOccupancyInPriMatSecOnly
 
-	isEndangered <- isRecordedSinceMurphy & 
+	isEndangered <- 
+		isRecordedSinceMurphy & 
 		!isRecordedInTwoOrLessSites & 
 		isAreaOfOccupancyInPriMatSecOnly
-
 
 	# Appending statuses to dataset
 	df_final$category_iucn <- "No status"
