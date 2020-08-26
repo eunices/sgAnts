@@ -94,5 +94,7 @@ jobs:
 
       # After success, upload to codecov
       - name: Test coverage
-        run: covr::codecov()
-        shell: Rscript {0}
+        if: matrix.r == '3.6'
+        run: |
+          Rscript -e 'remotes::install_github("r-lib/covr@gh-actions")'
+          Rscript -e 'covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")'
