@@ -4,7 +4,7 @@
 \alias{generate_iucn_status}
 \title{Generate the IUCN status for each species}
 \usage{
-generate_iucn_status(df_bool, df_habitat_sp_mat, site_cut_off = 2)
+generate_iucn_status(df_bool, df_habitat_sp_mat, site_cut_off = 1)
 }
 \arguments{
 \item{df_bool}{data.table output from generate_boolean_check_vars function. It is a data.table
